@@ -124,12 +124,14 @@ var BooksAdd = React.createClass({
 
 
 var BooksChange = React.createClass({
-  render: function() {
-    var dataForForm = this.props.dataForForm;
+  getInitialState: function () { return { dataForForm: {} }; },
+  componentWillMount: function () { CONTEXT['BooksChange'] = this; },
+  render: function () {
+    var dataForForm = this.state.dataForForm;
     if (dataForForm && isEmptyHash(dataForForm)) {
       return <BooksAdd/>;
     } else {
-      return <BooksEdit dataForForm={this.props.dataForForm} />;
+      return <BooksEdit dataForForm={dataForForm} />;
     }
   }
 });
@@ -137,17 +139,15 @@ var BooksChange = React.createClass({
 
 var BooksList = React.createClass({
   removeBook: function (e) {
-    var id = e.target.parentNode.id;
-    var listBooks = CONTEXT['Books'].state.listBooks;
-    listBooks[id-1] = null;
+    var id = e.target.parentNode.id,
+        listBooks = CONTEXT['Books'].state.listBooks;
+    listBooks[id - 1] = null;
     CONTEXT['Books'].setState({ listBooks: listBooks });
   },
   editBook: function (e) {
     var index     = e.target.parentNode.id - 1,
         listBooks = CONTEXT['Books'].state.listBooks;
-    CONTEXT['Books'].setState({ dataForForm: listBooks[index] });
-    // log(index, listBooks,listBooks[index], CONTEXT['Books'].state.dataForForm)
-    log(CONTEXT['Books'].state.dataForForm)
+    CONTEXT['BooksChange'].setState({ dataForForm: listBooks[index] });
   },
   render: function() {
     var handlerRemoveBook = this.removeBook;
@@ -177,18 +177,13 @@ var BooksList = React.createClass({
 
 
 var Books = React.createClass({
-  getInitialState: function() {
-    return {
-      listBooks: listBooks,
-      dataForForm: {},
-    };
-  },
+  getInitialState: function() { return { listBooks: listBooks }; },
   componentWillMount: function () { CONTEXT['Books'] = this; },
   render: function() {
     return (
       <div className="books">
-        <BooksChange dataForForm={this.state.dataForForm}/>
-        <BooksList   listBooks={this.state.listBooks}/>
+        <BooksChange/>
+        <BooksList listBooks={this.state.listBooks}/>
       </div>
     );
   }
