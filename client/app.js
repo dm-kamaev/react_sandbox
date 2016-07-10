@@ -15,6 +15,7 @@ var listBooks = [
     pages: 400
   },
 ];
+// будем хранить this для компонентов
 var CONTEXT = {};
 
 var BooksEdit = React.createClass({
@@ -32,7 +33,7 @@ var BooksEdit = React.createClass({
     this.setState(nextProps.dataForForm);
   },
   editBook: function (e) {
-    var listBooks = CONTEXT['Books'].state.listBooks;
+    var listBooks = CONTEXT['BooksList'].state.listBooks;
     var id = e.target.parentNode.id;
     var index = id - 1;
     var state = this.state;
@@ -43,7 +44,7 @@ var BooksEdit = React.createClass({
       year:   state.year,
       pages:  state.pages,
     };
-    CONTEXT['Books'].setState({ listBooks: listBooks });
+    CONTEXT['BooksList'].setState({ listBooks: listBooks });
   },
   change: function (field, e) { this.setState({ [field]: e.target.value }); },
   render: function () {
@@ -85,7 +86,7 @@ var BooksAdd = React.createClass({
         yearValue   = year.value,
         pagesValue  = pages.value;
     // console.log(authorValue, nameValue, yearValue, pagesValue);
-    var listBooks = CONTEXT['Books'].state.listBooks;
+    var listBooks = CONTEXT['BooksList'].state.listBooks;
     listBooks.push({
       id: (listBooks.length + 1).toString(),
       author: authorValue,
@@ -94,7 +95,7 @@ var BooksAdd = React.createClass({
       pages: pagesValue,
     });
     // console.log(listBooks);
-    CONTEXT['Books'].setState({ listBooks: listBooks });
+    CONTEXT['BooksList'].setState({ listBooks: listBooks });
   },
   render : function() {
     var style = { marginTop: '10px', backgroundColor: '#009933' };
@@ -138,21 +139,23 @@ var BooksChange = React.createClass({
 
 
 var BooksList = React.createClass({
+  getInitialState: function() { return { listBooks: listBooks }; },
+  componentWillMount: function () { CONTEXT['BooksList'] = this; },
   removeBook: function (e) {
-    var id = e.target.parentNode.id,
-        listBooks = CONTEXT['Books'].state.listBooks;
+    var id        = e.target.parentNode.id,
+        listBooks = this.state.listBooks;
     listBooks[id - 1] = null;
-    CONTEXT['Books'].setState({ listBooks: listBooks });
+    this.setState({ listBooks: listBooks });
   },
   editBook: function (e) {
     var index     = e.target.parentNode.id - 1,
-        listBooks = CONTEXT['Books'].state.listBooks;
+        listBooks = this.state.listBooks;
     CONTEXT['BooksChange'].setState({ dataForForm: listBooks[index] });
   },
   render: function() {
-    var handlerRemoveBook = this.removeBook;
-    var handlerEditBook = this.editBook;
-    var listBooks = this.props.listBooks;
+    var handlerRemoveBook = this.removeBook,
+        handlerEditBook   = this.editBook,
+        listBooks         = this.state.listBooks;
     listBooks = listBooks.map(function(book, index) {
       if (!book) { return; } // если книга была удалена
       return (
@@ -165,7 +168,7 @@ var BooksList = React.createClass({
             <span>{book.year} г. </span>
             <span>{book.pages} стр.</span>
           </p>
-          <hr class="spl"/>
+          <hr className="spl"/>
           <button onClick={handlerEditBook} className="edit">Edit</button>
           <button onClick={handlerRemoveBook} className="remove">Remove</button>
         </div>
@@ -177,13 +180,11 @@ var BooksList = React.createClass({
 
 
 var Books = React.createClass({
-  getInitialState: function() { return { listBooks: listBooks }; },
-  componentWillMount: function () { CONTEXT['Books'] = this; },
   render: function() {
     return (
       <div className="books">
         <BooksChange/>
-        <BooksList listBooks={this.state.listBooks}/>
+        <BooksList/>
       </div>
     );
   }
