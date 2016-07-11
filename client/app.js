@@ -10,8 +10,6 @@
 // TODO: Сделать валидацию некоторых полей
 // TODO: localStorage
 
-// (function () {
-//   "use strict";
 var React    = require('react');
 var ReactDOM = require('react-dom');
 var log = console.log.bind(console);
@@ -49,7 +47,7 @@ var BooksEdit = React.createClass({
     this.setState(nextProps.dataForForm);
   },
   editBook: function (e) {
-    var listBooks = CONTEXT['BooksList'].state.listBooks;
+    var listBooks = CONTEXT.BooksList.state.listBooks;
     var id = e.target.parentNode.id;
     var index = id - 1;
     var state = this.state;
@@ -60,8 +58,8 @@ var BooksEdit = React.createClass({
       year:   state.year,
       pages:  state.pages,
     };
-    CONTEXT['BooksList'].setState({ listBooks: listBooks });
-    CONTEXT['BooksChange'].setState({ dataForForm: {} });
+    CONTEXT.BooksList.setState({ listBooks: listBooks });
+    CONTEXT.BooksChange.setState({ dataForForm: {} });
   },
   change: function (field, e) { this.setState({ [field]: e.target.value }); },
   render: function () {
@@ -102,7 +100,7 @@ var BooksAdd = React.createClass({
         nameValue   = name.value,
         yearValue   = year.value,
         pagesValue  = pages.value;
-    var listBooks = CONTEXT['BooksList'].state.listBooks;
+    var listBooks = CONTEXT.BooksList.state.listBooks;
     listBooks.push({
       id: (listBooks.length + 1).toString(),
       author: authorValue,
@@ -110,7 +108,7 @@ var BooksAdd = React.createClass({
       year: yearValue,
       pages: pagesValue,
     });
-    CONTEXT['BooksList'].setState({ listBooks: listBooks });
+    CONTEXT.BooksList.setState({ listBooks: listBooks });
     author.value = ''; name.value = ''; year.value = ''; pages.value = '';
   },
   render : function() {
@@ -142,7 +140,7 @@ var BooksAdd = React.createClass({
 
 var BooksChange = React.createClass({
   getInitialState:    function () { return { dataForForm: {} }; },
-  componentWillMount: function () { CONTEXT['BooksChange'] = this; },
+  componentWillMount: function () { CONTEXT.BooksChange = this; },
   render: function () {
     var dataForForm = this.state.dataForForm;
     if (dataForForm && isEmptyHash(dataForForm)) {
@@ -156,7 +154,7 @@ var BooksChange = React.createClass({
 
 var BooksList = React.createClass({
   getInitialState:    function()  { return { listBooks: listBooks }; },
-  componentWillMount: function () { CONTEXT['BooksList'] = this; },
+  componentWillMount: function () { CONTEXT.BooksList = this; },
   removeBook: function (e) {
     var id        = e.target.parentNode.id,
         listBooks = this.state.listBooks;
@@ -166,7 +164,7 @@ var BooksList = React.createClass({
   editBook: function (e) {
     var index     = e.target.parentNode.id - 1,
         listBooks = this.state.listBooks;
-    CONTEXT['BooksChange'].setState({ dataForForm: listBooks[index] });
+    CONTEXT.BooksChange.setState({ dataForForm: listBooks[index] });
   },
   render: function() {
     var handlerRemoveBook = this.removeBook,

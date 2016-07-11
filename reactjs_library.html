@@ -5,110 +5,114 @@
   <title>React.js library books</title>
   <style>
     *{margin:0;padding:0}
-      body {font-family:Arial,Helvetica,sans-serif;font-size: 120%;}
-      ul,li{list-style:none}
+  body {font-family:Arial,Helvetica,sans-serif;font-size: 120%;}
+  ul,li{list-style:none}
 
-      img{border:0;}
-      table{border:0;border-collapse:collapse;}
-      table tr{vertical-align:top}
-      table td{padding:0}
-      a{color:#1A0DAB;text-decoration:underline;}  /* text-decoration:none */
-        a:visited{color:#1A0DAB}
-        a:hover  {color:#FF6633}
+  img{border:0;}
+  table{border:0;border-collapse:collapse;}
+  table tr{vertical-align:top}
+  table td{padding:0}
+  a{color:#1A0DAB;text-decoration:underline;}  /* text-decoration:none */
+    a:visited{color:#1A0DAB}
+    a:hover  {color:#FF6633}
 
-      h1{display:inline;font-weight:normal;font-size:110%} /*color:#AB3C3C;*/
-      h2{ display: block;margin: 25px auto;font-weight: normal; font-size: 180%;
-         font-family: Georgia,serif; color:#CC3300; text-align: center;
-      }
-      p{margin-top: 12px;margin-bottom: 12px;line-height:1.5}
-      em{font-weight:bold;color:#0099CC}
-      strong{color:#AB3C3C}
-      b{color:#0099CC}
-      a:active, a:focus, img{outline:0}
+  h1{display:inline;font-weight:normal;font-size:110%} /*color:#AB3C3C;*/
+  h2{ display: block;margin: 25px auto;font-weight: normal; font-size: 180%;
+     font-family: Georgia,serif; color:#CC3300; text-align: center;
+  }
+  p{margin-top: 12px;margin-bottom: 12px;line-height:1.5}
+  em{font-weight:bold;color:#0099CC}
+  strong{color:#AB3C3C}
+  b{color:#0099CC}
+  a:active, a:focus, img{outline:0}
 
-    .books{margin:0 auto;width:70%}
+.books{margin:0 auto;width:70%}
 
-    .books__column{
-      display:inline-block;
-      width:48%;
-      padding:10px 0.5%;
-      vertical-align:top;
-    }
-
-
-    .books__button_remove {
-      display:inline-block;
-      width:20%;
-      margin-bottom:0;
-      padding:6px 12px;
-      vertical-align:top;
-      color:#FFF;
-      border-color:#D43F3A;
-      border-radius:10px;
-      background-color:#D9534F;
-      border:1px solid transparent;
-      border-radius:4px;
-      cursor:pointer;
-      font-size:14px;
-      line-height:1.5;
-      text-align:center;
-      white-space:nowrap;
-    }
+.books__column{
+  display:inline-block;
+  width:48%;
+  padding:10px 0.5%;
+  vertical-align:top;
+}
 
 
-    .books__button_edit {
-      display:inline-block;
-      width:20%;
-      margin-right:6px;
-      margin-bottom:0;
-      vertical-align:top;
-      color:#FFF;
-      border-color:#D43F3A;
-      border-radius:10px;
-      background-color:#5CB85C;
-      border:1px solid transparent;
-      border-radius:4px;
-      cursor:pointer;
-      font-size:14px;
-      line-height:1.5;
-      padding:6px 12px;
-      text-align:center;
-      white-space: nowrap;
-    }
+.books__button_remove {
+  display:inline-block;
+  width:20%;
+  margin-bottom:0;
+  padding:6px 12px;
+  vertical-align:top;
+  color:#FFF;
+  border-color:#D43F3A;
+  border-radius:10px;
+  background-color:#D9534F;
+  border:1px solid transparent;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:14px;
+  line-height:1.5;
+  text-align:center;
+  white-space:nowrap;
+}
 
 
-    .books__input{
-      width:42%;
-      background-color:#FFF;
-      border:1px solid #CCC;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-      font-size:27px;
-      height:30px;
-      line-height:20px;
-      border-radius:10px;
-      padding-left:5px;
-    }
+.books__button_edit {
+  display:inline-block;
+  width:20%;
+  margin-right:6px;
+  margin-bottom:0;
+  vertical-align:top;
+  color:#FFF;
+  border-color:#D43F3A;
+  border-radius:10px;
+  background-color:#5CB85C;
+  border:1px solid transparent;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:14px;
+  line-height:1.5;
+  padding:6px 12px;
+  text-align:center;
+  white-space: nowrap;
+}
 
 
-    .books__input:focus{
-      border-color:rgba(82,168,236,0.8);
-      outline:0;
-      box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
-    }
+.books__input{
+  width:42%;
+  background-color:#FFF;
+  border:1px solid #CCC;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  font-size:27px;
+  height:30px;
+  line-height:20px;
+  border-radius:10px;
+  padding-left:5px;
+}
 
 
-    .books__input_error { display:none; font-size:75%; color:red; }
-
-    .books__separator{
-      background-color:#DDD;
-      border:0 none;
-      color:#DDD;
-      height:1px;
-      margin-top:10px;
-    }
+.books__input:focus{
+  border-color:rgba(82,168,236,0.8);
+  outline:0;
+  box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+}
 
 
-    @media screen and (max-width: 640px) { .column{width:95%} }
+.books__input_error { display:none; font-size:75%; color:red; }
+
+.books__separator{
+  background-color:#DDD;
+  border:0 none;
+  color:#DDD;
+  height:1px;
+  margin-top:10px;
+}
+
+
+@media screen and (max-width: 640px) {
+  .books__column{width:95%}
+  .books__input{width:90%}
+  .books__button_edit,.books__button_remove{width:40%}
+}
   </style>
 </head>
 <body>

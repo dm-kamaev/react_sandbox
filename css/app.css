@@ -102,4 +102,8 @@
 }
 
 
-@media screen and (max-width: 640px) { .column{width:95%} }
+@media screen and (max-width: 640px) {
+  .books__column{width:95%}
+  .books__input{width:90%}
+  .books__button_edit,.books__button_remove{width:40%}
+}
