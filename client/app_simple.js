@@ -1,19 +1,5 @@
-/*jshint sub: true*/
-/*jshint loopfunc: true */
-/*jshint newcap: false */
-/*jshint multistr: true */
-/*jshint expr: true */
-/*jshint esnext: true */
-
-
-// БИБЛИОТЕКА КНИГ
 // TODO: Сделать валидацию некоторых полей
 // TODO: localStorage
-
-// (function () {
-//   "use strict";
-var React    = require('react');
-var ReactDOM = require('react-dom');
 var log = console.log.bind(console);
 var listBooks = [
   {
@@ -61,31 +47,30 @@ var BooksEdit = React.createClass({
       pages:  state.pages,
     };
     CONTEXT['BooksList'].setState({ listBooks: listBooks });
-    CONTEXT['BooksChange'].setState({ dataForForm: {} });
   },
   change: function (field, e) { this.setState({ [field]: e.target.value }); },
   render: function () {
     var book  = this.props.dataForForm;
     var style = { marginTop: '10px', backgroundColor: '#009933' };
     return (
-      <div id={book.id} className="books__column">
+      <div id={book.id} className="main_table_column">
         <span>Автор:</span><br/>
-        <input onChange={this.change.bind(this, 'author')} value={this.state.author} className="books__input"/><br/>
-        <p className="books__input_error"></p>
+        <input onChange={this.change.bind(this, 'author')} value={this.state.author} className="field"/><br/>
+        <p className="error" id="error_author"></p>
 
         <span> Название книги:</span><br/>
-        <input type="text" onChange={this.change.bind(this, 'name')} value={this.state.name} className="books__input"/><br/>
-        <p className="books__input_error"></p>
+        <input type="text" onChange={this.change.bind(this, 'name')} value={this.state.name} className="field"/><br/>
+        <p className="error" id="error_title_book"></p>
 
         <span>Год издания:</span><br/>
-        <input type="text" onChange={this.change.bind(this, 'year')} value={this.state.year} className="books__input"/><br/>
-        <p className="books__input_error"></p>
+        <input type="text" onChange={this.change.bind(this, 'year')} value={this.state.year} className="field"/><br/>
+        <p className="error" id="error_year"></p>
 
         <span>Кол-во страниц:</span><br/>
-        <input type="text" onChange={this.change.bind(this, 'pages')} value={this.state.pages} className="books__input"/><br/>
-        <p className="books__input_error"></p>
+        <input type="text" onChange={this.change.bind(this, 'pages')} value={this.state.pages} className="field"/><br/>
+        <p className="error" id="error_number_pages"></p>
 
-        <button onClick={this.editBook} type="submit" style={style} className="books__button_edit">Edit</button>
+        <button onClick={this.editBook} type="submit" style={style} className="edit">Edit</button>
       </div>
     );
   }
@@ -111,29 +96,28 @@ var BooksAdd = React.createClass({
       pages: pagesValue,
     });
     CONTEXT['BooksList'].setState({ listBooks: listBooks });
-    author.value = ''; name.value = ''; year.value = ''; pages.value = '';
   },
   render : function() {
     var style = { marginTop: '10px', backgroundColor: '#009933' };
     return (
-      <div className="books__column">
+      <div className="main_table_column">
         <span>Автор:</span><br/>
-        <input ref="author" className="books__input"/><br/>
-        <p className="books_input_error"></p>
+        <input ref="author" className="field"/><br/>
+        <p className="error" id="error_author"></p>
 
         <span> Название книги:</span><br/>
-        <input type="text" className="books__input" ref="name"/><br/>
-        <p className="books_input_error"></p>
+        <input type="text" className="field" ref="name"/><br/>
+        <p className="error" id="error_title_book"></p>
 
         <span>Год издания:</span><br/>
-        <input type="text" className="books__input" ref="year"/><br/>
-        <p className="books_input_error"></p>
+        <input type="text" className="field" ref="year"/><br/>
+        <p className="error" id="error_year"></p>
 
         <span>Кол-во страниц:</span><br/>
-        <input type="text" className="books__input" ref="pages"/><br/>
-        <p className="books_input_error"></p>
+        <input type="text" className="field" ref="pages"/><br/>
+        <p className="error" id="error_number_pages"></p>
 
-        <button onClick={this.addBook} type="submit" style={style} className="books__button_edit">Add</button>
+        <button onClick={this.addBook} type="submit" style={style} className="edit" id="add">Add</button>
       </div>
     );
   }
@@ -184,13 +168,13 @@ var BooksList = React.createClass({
             <span>{book.year} г. </span>
             <span>{book.pages} стр.</span>
           </p>
-          <button onClick={handlerEditBook} className="books__button_edit">Edit</button>
-          <button onClick={handlerRemoveBook} className="books__button_remove">Remove</button>
-          <div className="books__separator"/>
+          <hr className="spl"/>
+          <button onClick={handlerEditBook} className="edit">Edit</button>
+          <button onClick={handlerRemoveBook} className="remove">Remove</button>
         </div>
       );
     });
-    return (<div className="books__column">{listBooks}</div>);
+    return (<div className="main_table_column">{listBooks}</div>);
   }
 });
 
