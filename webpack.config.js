@@ -12,7 +12,6 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loader: 'babel', // ?optional[]=runtime // позволит выносить функции es6 в отедeльные функции
       loader: 'babel-loader?presets[]=es2015&presets[]=react', // ?optional[]=runtime // позволит выносить функции es6 в отедeльные функции
     }],
   },
