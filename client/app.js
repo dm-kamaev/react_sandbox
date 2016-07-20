@@ -43,6 +43,8 @@ var BooksEdit = React.createClass({
       pages: book.pages,
     };
   }, // update state, if click "Edit" on another book
+  // когда получаем новые props обновляем state
+  // поля формы связаны со state
   componentWillReceiveProps: function (nextProps) {
     this.setState(nextProps.dataForForm);
   },
@@ -92,6 +94,7 @@ var BooksEdit = React.createClass({
 
 var BooksAdd = React.createClass({
   addBook: function () {
+    // не связанные со state поля
     var author = ReactDOM.findDOMNode(this.refs.author),
         name   = ReactDOM.findDOMNode(this.refs.name),
         year   = ReactDOM.findDOMNode(this.refs.year),
